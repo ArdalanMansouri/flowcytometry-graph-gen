@@ -1,4 +1,4 @@
-# Graph generator for Flow Cytometry 
+# Graph Generator for Flow Cytometry 
 **Background**
 Commercial flow cytometry software (e.g., FlowJo) is widely used for analyzing .fcs files and generating publication-ready figures. However, these tools operate as black boxes, the underlying calculations and normalization steps are largely opaque, making reproducibility and transparency difficult to ensure. Additionally, their rigid interfaces offer limited flexibility for customizing figure elements to fit specific research needs.
 
