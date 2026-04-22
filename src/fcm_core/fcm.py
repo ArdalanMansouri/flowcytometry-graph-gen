@@ -17,14 +17,17 @@ def compile_fcs_data(
     Compiles FCS experiment data from subfolders into a single pandas 
     DataFrame.
     
-    Parameters:
+    Args:
     - data_folder (str): Name of the folder containing the data.
     - sample_name_map (dict): {substring: "Sample Name"}
     - incubation_map (dict): {substring: "Duration Label"}
     - include_keywords (list): Only process files containing AT LEAST ONE 
-                               of these strings in the name.
+        of these strings in the name.
     - exclude_keywords (list): Skip files containing ANY of these strings in 
-                               the name.
+        the name.
+
+    Returns:
+        pd.DataFrame: A compiled DataFrame with metadata and FCS data.
     """
    
     # Standardize inputs: Convert single strings to lists
