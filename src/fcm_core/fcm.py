@@ -307,9 +307,7 @@ class Graph:
         self.samples = samples
         self.incub_duration = incub_duration
         self.channel = channel
-        # Note: As the packages are imported inside the class, we need to use 
-        # self.np to access numpy in this code.
-        self.bins = self.np.logspace(0, 6, 256) 
+        self.bins = np.logspace(0, 6, 256) 
         self.date = date
 
         # --- Layout Attributes ---
@@ -402,7 +400,7 @@ class Graph:
         ]
         
         for exp in selected_experiments["Date"].unique():
-            fig = self.go.Figure()
+            fig = go.Figure()
             exp_df = selected_experiments.loc[
                         selected_experiments["Date"] == exp
             ]
@@ -415,12 +413,12 @@ class Graph:
                 if sample_data.empty:
                     continue
                 
-                hist_data, _ = self.np.histogram(sample_data, bins=self.bins)
+                hist_data, _ = np.histogram(sample_data, bins=self.bins)
                 l_color = self.line_colors[idx % len(self.line_colors)]
                 f_color = self.fill_colors[idx % len(self.fill_colors)]
                 
                 fig.add_trace(
-                    self.go.Scatter(
+                    go.Scatter(
                         x=self.bins, y=hist_data, name=sample_name, 
                         line_color=l_color, line_width=1,
                         fillcolor=f_color, fill='tozeroy', opacity=0.5
