@@ -7,23 +7,23 @@ from FlowCytometryTools import FCMeasurement
 
 #%%
 def compile_fcs_data(
-    data_folder="data", 
-    sample_name_map=None, 
-    incubation_map=None,
-    include_keywords=None,
-    exclude_keywords=None
+    data_folder: str ="data", 
+    sample_name_map: dict =None, 
+    incubation_map: dict =None,
+    include_keywords: list =None,
+    exclude_keywords: list =None
 ):
     """
     Compiles FCS experiment data from subfolders into a single pandas 
     DataFrame.
-    
+
     Args:
-    - data_folder (str): Name of the folder containing the data.
-    - sample_name_map (dict): {substring: "Sample Name"}
-    - incubation_map (dict): {substring: "Duration Label"}
-    - include_keywords (list): Only process files containing AT LEAST ONE 
+    - data_folder: Name of the folder containing the data.
+    - sample_name_map: {substring: "Sample Name"}
+    - incubation_map: {substring: "Duration Label"}
+    - include_keywords: Only process files containing AT LEAST ONE 
         of these strings in the name.
-    - exclude_keywords (list): Skip files containing ANY of these strings in 
+    - exclude_keywords: Skip files containing ANY of these strings in 
         the name.
 
     Returns:
@@ -181,7 +181,8 @@ def compile_fcs_data(
     return df
 
 #%%
-def sample_size_normalizer(df, samples_col:str, target_size:int, col:str):
+def sample_size_normalizer(df: pd.DataFrame, samples_col: str, 
+                           target_size: int, col: str):
     """ Normalize the sample size of each sample group of flow cytometry 
     (e.g., compound, control, ...) based on a specific sample size. This shoudl
     be done before histogram generation. This method maintains the shape and 
@@ -200,8 +201,7 @@ def sample_size_normalizer(df, samples_col:str, target_size:int, col:str):
         a new column that is the normalized value of the given column based on 
         the sample size normalization factor.
     """
-    import pandas as pd
-
+    
     final_list = []
     for sample in df[samples_col].unique():
         # Select the sample
@@ -249,20 +249,20 @@ class Graph:
     """
  
     def __init__(self, 
-                 df, 
-                 samples= List[str], 
-                 incub_duration=None, 
-                 date=None,
-                 channel="Size_normalized_PKH26"):
+                 df: pd.DataFrame, 
+                 samples: List[str], 
+                 incub_duration: str = None, 
+                 date: str = None,
+                 channel: str = "Size_normalized_PKH26"):
         
         """
         Args:
-            df (pd.DataFrame): The input dataframe containing FCM data.
-            samples (List[str]): List of sample names to include in the graph.
-            incub_duration (str, optional): Incubation duration to filter 
+            df: The input dataframe containing FCM data.
+            samples: List of sample names to include in the graph.
+            incub_duration: Incubation duration to filter 
                 the data.
-            date (str, optional): Date/Experiment ID to filter the data.
-            channel (str): The column name in the dataframe to be plotted on 
+            date: Date/Experiment ID to filter the data.
+            channel: The column name in the dataframe to be plotted on 
                 the x-axis.
 
         Raises:
@@ -377,14 +377,14 @@ class Graph:
             else:
                 print(f"Warning: '{key}' is not a recognized attribute.")
 
-    def graph_generator(self, save_fig=False, save_path: str = None):
+    def graph_generator(self, save_fig: bool = False, save_path: str = None):
         """
         Filters the dataframe, builds the Plotly figures based on current 
         attributes, and displays/saves them.
         
         Args:
-            save_fig (bool): Whether to save the figure as an SVG file.
-            save_path (str): The directory path where the figure should be 
+            save_fig: Whether to save the figure as an SVG file.
+            save_path: The directory path where the figure should be 
                 saved. If None, the figure will not be saved.
         Returns:
             None
